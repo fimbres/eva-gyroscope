@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Gyroscope } from 'expo-sensors';
 
+import { useFonts, Roboto_500Medium, Roboto_300Light } from '@expo-google-fonts/roboto';
+
 export default function App() {
   const [data, setData] = useState({
     x: 0,
@@ -9,20 +11,17 @@ export default function App() {
     z: 0,
   });
   const [subscription, setSubscription] = useState(null);
-
-  const _slow = () => {
-    Gyroscope.setUpdateInterval(1000);
-  };
-
-  const _fast = () => {
-    Gyroscope.setUpdateInterval(16);
-  };
+  let {fontsLoaded, errors} = useFonts({
+    Roboto_300Light,
+    Roboto_500Medium
+  });
 
   const _subscribe = () => {
     setSubscription(
       Gyroscope.addListener(gyroscopeData => {
         setData(gyroscopeData);
-      })
+      }),
+      Gyroscope.setUpdateInterval(400)
     );
   };
 
@@ -38,25 +37,24 @@ export default function App() {
 
   const { x, y, z } = data;
   return (
-    <View style={styles.container}>
-      <Text >Gyroscope:</Text>
-      <Text >
-        x: {x} y: {y} z: {z}
-      </Text>
-      <View >
-        <TouchableOpacity onPress={subscription ? _unsubscribe : _subscribe} >
-          <Text>{subscription ? 'On' : 'Off'}</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={_slow} >
-          <Text>Slow</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={_fast} >
-          <Text>Fast</Text>
-        </TouchableOpacity>
+    Gyroscope.isAvailableAsync() ? 
+      <View style={styles.container}>
+        <Text style={{fontFamily: "Roboto_500Medium", fontSize: 24}}>Gyroscope Data:</Text>
+        <Text>x: {x}</Text>
+        <Text>y: {y}</Text>
+        <Text>z: {z}</Text>
+        <View>
+          <TouchableOpacity onPress={subscription ? _unsubscribe : _subscribe} >
+            <Text>{subscription ? 'On' : 'Off'}</Text>
+          </TouchableOpacity>
+        </View>
+      </View> : 
+      <View style={styles.container}>
+        <Text>You don't have a Gyroscope sensor</Text>
       </View>
-    </View>
   );
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
