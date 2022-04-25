@@ -6,13 +6,14 @@ import AppButton from './components/AppButton';
 import AppInput from './components/AppInput';
 import MovementRecognizer from './components/MovementRecognizer';
 import Colors from './constants/colors';
-import { EVA_IP_ADDRESS } from './constants/server-eva';
+import { TEST, EVA_IP_ADDRESS } from './constants/server-eva';
+import { getMovement } from './server/services';
 
 export default function App() {
   const [data, setData] = useState({ x: 0, y: 0, z: 0, });
   const [subscription, setSubscription] = useState(null);
   const [showForm, setShowForm] = useState(false);
-  const [evaIpAddress, setEvaIpAddress] = useState(EVA_IP_ADDRESS);
+  const [evaIpAddress, setEvaIpAddress] = useState(TEST);
   const [formIpAddress, setFormIpAddress] = useState(evaIpAddress);
   const [movementCode, setMovementCode] = useState("");
 
@@ -39,6 +40,12 @@ export default function App() {
     _subscribe();
     return () => _unsubscribe();
   }, []);
+
+  useEffect(() => {
+    if(movementCode !== ""){
+      return () => getMovement(TEST, movementCode);
+    }
+  }, [movementCode]);
 
   const { x, y, z } = data;
   return (
