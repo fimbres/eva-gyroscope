@@ -4,6 +4,7 @@ import { Gyroscope } from 'expo-sensors';
 
 import AppButton from './components/AppButton';
 import AppInput from './components/AppInput';
+import MovementRecognizer from './components/MovementRecognizer';
 import Colors from './constants/colors';
 import { EVA_IP_ADDRESS } from './constants/server-eva';
 
@@ -13,6 +14,7 @@ export default function App() {
   const [showForm, setShowForm] = useState(false);
   const [evaIpAddress, setEvaIpAddress] = useState(EVA_IP_ADDRESS);
   const [formIpAddress, setFormIpAddress] = useState(evaIpAddress);
+  const [movementCode, setMovementCode] = useState("");
 
   const handleOnPress = () => {
     setEvaIpAddress(formIpAddress);
@@ -44,12 +46,13 @@ export default function App() {
       {Gyroscope.isAvailableAsync() ? 
         <View style={styles.container}>
           <View>
-            <Text style={styles.title}>Gyroscope Data</Text>
-            <Text style={styles.text}>x: {x.toFixed(2)}</Text>
-            <Text style={styles.text}>y: {y.toFixed(2)}</Text>
-            <Text style={styles.text}>z: {z.toFixed(2)}</Text>
+            <Text style={[styles.title, {marginBottom: 30}]}>Gyroscope Data</Text>
+            <Text style={styles.text}>x: {x.toFixed(2)}  y: {y.toFixed(2)}  z: {z.toFixed(2)}</Text>
           </View>
-          {subscription && <Text style={[styles.text, {marginTop: 15}]}>Sending data to {evaIpAddress}</Text>}
+          {subscription && <View>
+          <Text style={[styles.text, {marginTop: 15}]}>Sending data to {evaIpAddress}</Text>
+          <Text style={[styles.subtitle, {marginTop: 10}]} >Your movement is <MovementRecognizer x={x} y={y} setMovementCode={setMovementCode}/></Text>
+          </View>}
           <View style={styles.buttonContainer}>
             <AppButton onPress={subscription ? _unsubscribe : _subscribe} title={subscription ? 'Stop' : 'Start'} primary={true}/>
             <AppButton onPress={() => {setShowForm(!showForm)}} title="Set new Eva IP Address" primary={false}/>
@@ -77,7 +80,12 @@ const styles = StyleSheet.create({
     fontSize: 32,
     color: Colors.secondary,
     textAlign: 'center',
-    marginBottom: 30
+  },
+  subtitle: {
+    fontWeight: "400",
+    fontSize: 22,
+    color: Colors.tertiary,
+    textAlign: 'center',
   },
   text: {
     fontSize: 18,
