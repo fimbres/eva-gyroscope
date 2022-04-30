@@ -3,14 +3,14 @@ import { StyleSheet, TextInput } from 'react-native';
 
 import Colors from '../constants/colors';
 
-export default function AppInput({ setEvaIpAddress, value }) {
+export default function AppInput({ onChange, value, placeHolder, ...props }) {
   return (
     <TextInput 
       style={styles.input}
       defaultValue={value}
-      placeholder="Enter the new IP Address of Eva"
-      onChangeText={(text) => {setEvaIpAddress(text)}}
-      keyboardType="decimal-pad"
+      placeholder={placeHolder}
+      onChangeText={onChange}
+      {...props}
     />
   )
 };
