@@ -1,7 +1,6 @@
 export async function getMovement(EVA_IP, movement_code){
     try {
         const url = "http://" + EVA_IP + "/api/eva-test/" + movement_code;
-        console.log(url);
         const params = {
             method: "POST",
             headers: {'Content-Type': 'application/json'},
