@@ -7,9 +7,9 @@ Mobile app developed with Expo and React Native for the head movement of Eva.
 **Screenshots**
 
 <p style="text-align: center;">
-    <img src="./screenshots/img1.jpeg" alt="The app is working" width="60" valign="middle" style="margin-right:18px;vertical-align:middle;">
-    <img src="./screenshots/img2.jpeg" alt="Setting a new IP address for eva" width="60" valign="middle" style="margin-right:18px;vertical-align:middle;">
-    <img src="./screenshots/img3.jpeg" alt="App when error has ocurred" width="60" valign="middle" style="margin-right:18px;vertical-align:middle;">
+    <img src="./screenshots/img1.jpeg" alt="The app is working" width="120" style="margin-right:18px; vertical-align:middle;">
+    <img src="./screenshots/img2.jpeg" alt="Setting a new IP address for eva" width="120" style="margin-right:18px; vertical-align:middle;">
+    <img src="./screenshots/img3.jpeg" alt="App when error has ocurred" width="120" style="margin-right:18px; vertical-align:middle;">
 </p>
 
 **Prerequisites**
