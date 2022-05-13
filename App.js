@@ -8,14 +8,14 @@ import AppButton from './components/AppButton';
 import AppInput from './components/AppInput';
 import MovementRecognizer from './components/MovementRecognizer';
 import Colors from './constants/colors';
-import { TEST, EVA_IP_ADDRESS } from './constants/server-eva';
+import { EVA_IP_ADDRESS } from './constants/server-eva';
 import { getMovement } from './server/services';
 
 export default function App() {
   const [data, setData] = useState({ x: 0, y: 0, z: 0, });
   const [subscription, setSubscription] = useState(null);
   const [showForm, setShowForm] = useState(false);
-  const [evaIpAddress, setEvaIpAddress] = useState(TEST);
+  const [evaIpAddress, setEvaIpAddress] = useState(EVA_IP_ADDRESS);
   const [formIpAddress, setFormIpAddress] = useState(evaIpAddress);
   const [movementCode, setMovementCode] = useState("");
 
@@ -55,6 +55,19 @@ export default function App() {
     }
   }, [movementCode]);
 
+  const center = async () => {
+    try{
+      const response = await getMovement(evaIpAddress, "c");
+      if(response.statusCode) throw "TimeOut! Request failed.";
+    }
+    catch(err) {
+      Toast.show('Timeout: Data failed to send.', {
+        duration: Toast.durations.SHORT,
+        containerStyle: {backgroundColor: "red"}
+      });
+    }
+  };
+
   const { x, y, z } = data;
   return (
     <RootSiblingParent>
@@ -71,12 +84,13 @@ export default function App() {
             </View>}
             <View style={styles.buttonContainer}>
               <AppButton onPress={subscription ? _unsubscribe : _subscribe} title={subscription ? "Stop" : "Start"} primary={true}/>
-              <AppButton onPress={() => {setShowForm(!showForm)}} title="Set new Eva IP Address" primary={false}/>
+              {subscription && <AppButton onPress={center} title="Center" primary={false}/>}
+              {!subscription && <AppButton onPress={() => {setShowForm(!showForm)}} title="Set new Eva IP Address" primary={false}/>}
             </View>
-            {showForm && <View style={styles.evaForm}>
+            {(!subscription && showForm) && (<View style={styles.evaForm}>
               <AppInput onChange={(text) => setFormIpAddress(text)} value={formIpAddress} placeHolder="Enter the new IP Address of Eva" keyboardType="decimal-pad"/>
               <AppButton title="Submit" primary={true} onPress={() => handleSubmit()}/>  
-            </View>}
+            </View>)}
           </View> : 
           <View style={styles.container}>
             <Text style={styles.title}>You don't have a gyroscope sensor</Text>
