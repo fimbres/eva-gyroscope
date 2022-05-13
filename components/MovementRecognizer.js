@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react'
-import { Text } from 'react-native'
+import React, { useEffect } from 'react';
+import { Text } from 'react-native';
 
 export default function MovementRecognizer({ x, y, movementCode, setMovementCode }) {
   const handleChange = (x, y) => {
