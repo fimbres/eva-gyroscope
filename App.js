@@ -102,8 +102,7 @@ export default function App() {
 
 const styles = StyleSheet.create({
   page: {
-    flex: 1, 
-    backgroundColor: Colors.font
+    flex: 1,
   },
   container: {
     alignItems: 'center',
