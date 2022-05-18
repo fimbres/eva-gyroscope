@@ -1,10 +1,10 @@
-export async function getMovement(EVA_IP, movement_code){
+export async function getMovement(evaIp, movementCode){
     try {
-        const url = "http://" + EVA_IP + "/nodes";
+        const url = "http://" + evaIp + "/nodes";
         const params = {
             method: "POST",
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({type: 'mov', mov: movement_code})
+            body: JSON.stringify({type: 'mov', mov: movementCode})
         };
         const response = await fetch(url, params);
         const result = await response.json();
