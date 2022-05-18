@@ -1,6 +1,6 @@
-export async function getMovement(evaIp, movementCode){
+export async function getMovement(evaIpAddress, movementCode){
     try {
-        const url = "http://" + evaIp + "/nodes";
+        const url = "http://" + evaIpAddress + "/nodes";
         const params = {
             method: "POST",
             headers: {'Content-Type': 'application/json'},
