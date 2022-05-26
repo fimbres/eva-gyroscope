@@ -1,4 +1,4 @@
-# EvaGyroscope
+# eva-gyroscope
 
 **Description**
 
@@ -15,16 +15,17 @@ Mobile app developed with Expo and React Native for the head movement of Eva.
 **Prerequisites**
 
 Be sure that you have already installed:
-- NodeJs and Yarn.
-- Expo js.
+- NodeJs version 14.
+- Yarn.
+- Expo.
 - Git.
 - Expo Go app in a smartphone.
 
 **Instructions**
 
-- run in your git console `git clone https://github.com/fimbres/EvaGyroscope.git`
-- run `cd EvaGyroscope`
+- run in your git console `git clone https://github.com/fimbres/eva-gyroscope.git`
+- run `cd eva-gyroscope`
 - run  `yarn install` or just `yarn`
 - Open the project with your IDE.
 - run `expo start`
-- scan the QR code using your smartphone. (this should open your Expo Go app with the EvaGyroscope running on your smartphone)
+- scan the QR code using your smartphone. (this should open your Expo Go app with the `eva-gyroscope` running on your smartphone)
